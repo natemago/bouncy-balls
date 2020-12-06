@@ -23,10 +23,10 @@ export abstract class BaseLoop implements Loop{
     }
 
     tick() {
-        if(!this.tickDone) {
-            return
-        }
-        this.tickDone = false;
+        // if(!this.tickDone) {
+        //     return
+        // }
+        // this.tickDone = false;
         const frame = this.frame + 1;
         const currentTime = new Date();
         const delta = (this.lastFrameAt ? currentTime.getTime() - this.lastFrameAt?.getTime() : 0) / 1000;  // seconds instead of milliseconds
@@ -37,7 +37,7 @@ export abstract class BaseLoop implements Loop{
                 console.log('Error:', e, 'at handler:', handler);
             }
         })
-        this.tickDone = true;
+        //this.tickDone = true;
         this.lastFrameAt = currentTime
     }
 
@@ -81,10 +81,6 @@ export class AnimationLoop extends BaseLoop {
 
         const onAnimationFrame = function(time: number) {
             tickFn()
-            // setTimeout(() => {
-            //     //self.frameTickHandler = requestAnimationFrame(onAnimationFrame);
-            // }, 500)
-
             if(self.isRunning()) {
                 self.frameTickHandler = requestAnimationFrame(onAnimationFrame);
             }

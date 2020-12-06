@@ -1,5 +1,5 @@
 import {AnimationLoop, UpdateLoop, Loop} from './animation'
-import {Vector2D, DrawingProvider, Drawable, BaseDrawableObject, BaseDrawingProvider, Ball, Specs} from './drawables'
+import {Vector2D, DrawingProvider, Drawable, BaseDrawableObject, BaseDrawingProvider, Ball, Specs, Canvas2DrawingProvider} from './drawables'
 
 type EngineSettings = {
     fps: number,

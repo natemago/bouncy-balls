@@ -1,6 +1,8 @@
 import React from 'react';
 import {Canvas2DrawingProvider} from '../bouncyballs/drawables';
 
+import './Canvas.css'
+
 type CanvasProps = {
     drawingProvider: Canvas2DrawingProvider,
     onClick?: (event: CanvasMouseEvent) => void,
@@ -29,14 +31,23 @@ export default class Canvas extends React.Component<CanvasProps, CanvasState> {
     componentDidMount() {
         if(this.drawingProvider && this.canvas) {
             this.drawingProvider.setCanvas(this.canvas)
-            console.log('Set canvas -> with context ::mount')
         }
+        
+        window.addEventListener('resize', this.updateCanvasWidthAndHeight.bind(this))
+        this.updateCanvasWidthAndHeight()
     }
 
     componentDidUpdate() {
         if(this.drawingProvider && this.canvas) {
             this.drawingProvider.setCanvas(this.canvas)
-            console.log('Set canvas -> with context ::update')
+        }
+    }
+
+    updateCanvasWidthAndHeight() {
+        if (this.canvas) {
+            const [width, height] = this.getSize()
+            this.canvas.width = width?? 0
+            this.canvas.height = height?? 0
         }
     }
 
@@ -54,9 +65,14 @@ export default class Canvas extends React.Component<CanvasProps, CanvasState> {
             }
             this.props.onClick(ev)
         }
-    }    
+    }
+
+    getSize() {
+        const rect = this.canvas?.getBoundingClientRect()
+        return [rect?.width, rect?.height]
+    }
 
     render() {
-        return <canvas ref={(c) => this.canvas = c} width="1500" height="500" onClick={this.handleClick.bind(this)}></canvas>
+        return <canvas ref={(c) => this.canvas = c} onClick={this.handleClick.bind(this)} className="drawing-canvas"></canvas>
     }
 }

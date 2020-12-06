@@ -16,6 +16,7 @@ import './App.css';
 class App extends React.Component {
 
   drawingProvider: Canvas2DrawingProvider
+  canvas?: Canvas | null
 
   engine: Engine
 
@@ -27,15 +28,26 @@ class App extends React.Component {
     this.engine = new Engine({
       fps: 60,
       world: {
-        width: 1500,
-        height: 500,
+        width: 0,
+        height: 0,
       },
       elasticity: 0.7,
     }, this.drawingProvider)
   }
 
   componentDidMount(){
+    const updateWorldSize = this.updateWorldSize.bind(this)
+    window.addEventListener('resize', ev => {
+      updateWorldSize()
+    })
+    updateWorldSize()
     this.engine.start()
+  }
+
+  updateWorldSize() {
+    const [width, height] = this.canvas?.getSize()?? [0, 0]
+    this.engine.updateWorldSize(width?? 0, height?? 0)
+    console.log('Update world size to:', width, height)
   }
   
   createBall(x: number, y: number) {
@@ -53,11 +65,11 @@ class App extends React.Component {
   render(){
     return (
       <div className="App">
-        {/* <header className="App-header">
+        <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-        </header> */}
+        </header>
         <section>
-          <Canvas drawingProvider={this.drawingProvider} onClick={this.onClick.bind(this)} ></Canvas>
+          <Canvas drawingProvider={this.drawingProvider} onClick={this.onClick.bind(this)} ref={(c) => this.canvas = c}></Canvas>
         </section>
       </div>
     );
