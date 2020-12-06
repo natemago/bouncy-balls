@@ -1,5 +1,5 @@
 import {AnimationLoop, UpdateLoop, Loop} from './animation'
-import {Vector2D, DrawingProvider, Drawable, BaseDrawableObject, BaseDrawingProvider, Ball, Specs, Canvas2DrawingProvider} from './drawables'
+import {Vector2D, DrawingProvider, Drawable, BaseDrawableObject, Ball} from './drawables'
 
 type EngineSettings = {
     fps: number,
@@ -41,12 +41,12 @@ export class Engine {
     }
 
     boundaryCheck(frame: number, time:Date, delta:number):void {
-        const {width, height} = this.settings.world
+        const {width} = this.settings.world
         const removeFromAnimation:Drawable[] = []
         this.objects = this.objects.filter(drawable => {
             if(drawable instanceof BaseDrawableObject) {
                 const bdo = drawable as BaseDrawableObject
-                const {x,y} = bdo.position
+                const {x} = bdo.position
                 
                 if ((x < 0 && bdo.velocity.x < 0) || (x > width && bdo.velocity.x > 0)) {
                     removeFromAnimation.push(drawable)
@@ -54,6 +54,7 @@ export class Engine {
                 }
                 return true
             }
+            return false
         })
         const drawingProvider = this.drawingProvider
         removeFromAnimation.forEach(drawable => drawingProvider.remove(drawable))

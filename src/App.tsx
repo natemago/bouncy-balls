@@ -1,6 +1,5 @@
 import React from 'react';
 
-import {AnimationLoop, UpdateLoop} from './bouncyballs/animation'
 import {Canvas2DrawingProvider, Ball, Specs, Vector2D} from './bouncyballs/drawables'
 import {Engine} from './bouncyballs/engine'
 

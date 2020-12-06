@@ -113,7 +113,7 @@ export abstract class BaseDrawingProvider implements DrawingProvider {
     }
 
     remove(drawable: Drawable): void {
-        this.drawables = this.drawables.filter(d => d != drawable)
+        this.drawables = this.drawables.filter(d => d !== drawable)
     }
 
     render(frame: number, time: Date, delta: number): void {
@@ -152,10 +152,6 @@ export class Canvas2DrawingProvider extends BaseDrawingProvider {
     
     private renderingContext?: CanvasRenderingContext2D;
     private canvasEl?: HTMLCanvasElement;
-
-    constructor(){
-        super()
-    }
 
     setCanvas(canvas: HTMLCanvasElement): void {
         this.canvasEl = canvas;

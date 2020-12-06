@@ -18,10 +18,6 @@ export abstract class BaseLoop implements Loop{
     
     protected handlers: LoopTickHandler[] = [];
 
-
-    constructor() {
-    }
-
     tick() {
         // if(!this.tickDone) {
         //     return
@@ -108,7 +104,7 @@ export class UpdateLoop extends BaseLoop {
 
     scheduleTick(tickFn: Function): number {
         const interval = 1000/this.fps;
-        return setInterval(tickFn);
+        return setInterval(tickFn, interval);
     }
     cancelTick(tickHandler: number): void {
         clearInterval(tickHandler);
