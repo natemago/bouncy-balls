@@ -34,6 +34,7 @@ export class Engine {
     setupWorld():void {
         this.updateLoop.addHandler(this.boundaryCheck.bind(this))
         this.updateLoop.addHandler(this.baseObjectsUpdate.bind(this))
+        //this.updateLoop.addHandler(this.bounceWalls.bind(this))
         this.updateLoop.addHandler(this.bounceBack.bind(this))
         this.updateLoop.addHandler(this.collisionPhysics.bind(this))
         // setup the rendering
@@ -80,6 +81,24 @@ export class Engine {
         })
     }
 
+    bounceWalls(frame: number, time:Date, delta:number): void {
+        const {elasticity} = this.settings
+        this.objects.forEach(drawable => {
+            if (drawable instanceof BaseDrawableObject) {
+                const bdo = drawable as BaseDrawableObject
+                const bbox = bdo.getBoundingBox()
+                if(bbox.x < 0) {
+                    bdo.position = new Vector2D(bdo.position.x - bbox.x, bdo.position.y)
+                    bdo.velocity = new Vector2D(-bdo.velocity.x, bdo.velocity.y*elasticity)
+                }
+                if(bbox.x > this.settings.world.width) {
+                    bdo.position = new Vector2D(bdo.position.x - (bbox.x - this.settings.world.width), bdo.position.y)
+                    bdo.velocity = new Vector2D(-bdo.velocity.x, bdo.velocity.y*elasticity)
+                }
+            }
+        })
+    }
+
 
     collisionPhysics(frame: number, time:Date, delta:number):void {
         const balls:Ball[] = this.objects.filter(d => d instanceof Ball).map(d => d as Ball);
@@ -104,10 +123,12 @@ export class Engine {
 
         colliding.forEach(pair => {
             const [b1, b2] = pair
+            const m1 = b1.radius**3 // mass proprtional to volume, volume is proportional to the 3rd power of the radius
+            const m2 = b2.radius**3
             const c1 = b1.position.add(new Vector2D(b1.radius, b1.radius))
             const c2 = b2.position.add(new Vector2D(b2.radius, b2.radius))
-            const v1 = b1.velocity.sub(c1.sub(c2).mulScalar(b1.velocity.sub(b2.velocity).dot(c1.sub(c2)) / (c1.sub(c2).value()**2)))
-            const v2 = b2.velocity.sub(c2.sub(c1).mulScalar(b2.velocity.sub(b1.velocity).dot(c2.sub(c1)) / (c2.sub(c1).value()**2)))
+            const v1 = b1.velocity.sub(c1.sub(c2).mulScalar(b1.velocity.sub(b2.velocity).dot(c1.sub(c2)) / (c1.sub(c2).value()**2)).mulScalar((2*m2)/(m1+m2)))
+            const v2 = b2.velocity.sub(c2.sub(c1).mulScalar(b2.velocity.sub(b1.velocity).dot(c2.sub(c1)) / (c2.sub(c1).value()**2)).mulScalar((2*m1)/(m1+m2)))
 
             b1.velocity = v1
             b2.velocity = v2
@@ -127,16 +148,8 @@ export class Engine {
         }
     }
 
-    createBall(x: number, y: number):void {
-        const velocity = 10
-        const ball = new Ball(Math.random()*7 + 8, {
-            fillColor: 'red',
-            borderColor: 'black',
-            borderWidth: 1,
-        }, new Vector2D(x, this.settings.world.height - y), new Vector2D(
-            Math.random()*velocity-velocity/2, 
-            Math.random()*velocity-velocity/2), new Vector2D(0, -9.81))
-        this.drawingProvider.add(ball)
-        this.objects.push(ball)
+    addObject(obj:Drawable): void {
+        this.drawingProvider.add(obj)
+        this.objects.push(obj)
     }
 }

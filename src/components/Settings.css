@@ -1,0 +1,36 @@
+.settings-toggle {
+    
+}
+
+.settings label {
+    margin-right: 10px;
+}
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 2em;
+    background-color: #414855;
+}
+
+.settings .settings-form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.settings-form.settings-closed {
+    display: none;
+}
+
+.settings-form.settings-open {
+    display: auto;
+}
+
+.input-group {
+    display: block;
+    width: calc(40px + 15vw);
+    min-width: 140px;
+    flex: 1 0 initial;
+}

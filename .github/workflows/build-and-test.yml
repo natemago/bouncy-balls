@@ -6,7 +6,7 @@ jobs:
     
     steps:
       - uses: actions/checkout@v2
-      - name: Build with nodejs 14.x
+      - name: Setup nodejs 14.x
         uses: actions/setup-node@v1
         with:
           node-version: 14.x
