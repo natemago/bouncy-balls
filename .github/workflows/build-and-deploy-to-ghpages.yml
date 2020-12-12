@@ -19,6 +19,7 @@ jobs:
       - run: |
           npm install
           npm run build
+          npm run build:docs
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@3.7.1

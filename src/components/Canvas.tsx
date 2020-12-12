@@ -3,21 +3,46 @@ import {Canvas2DrawingProvider} from '../bouncyballs/drawables';
 
 import './Canvas.css'
 
+/**
+ * Canvas component properties.
+ */
 type CanvasProps = {
+    /**
+     * Reference to the DrawingProvider
+     */
     drawingProvider: Canvas2DrawingProvider,
+
+    /**
+     * Handler for click events on the underlying canvas element.
+     * The x and y coordinates of the click are corrected to be relative to
+     * the unserlying canvas, as opposed to an absolute postion on the browser
+     * viewport.
+     */
     onClick?: (event: CanvasMouseEvent) => void,
 }
 
-type CanvasState = {
+/**
+ * Canvas component state type.
+ */
+type CanvasState = {}
 
-}
-
+/**
+ * Wrapper for a mouse event on the canvas.
+ * Contains the original event and corrected x and y coordinates of the event
+ * to the relative position of the canvas element.
+ */
 export type CanvasMouseEvent = {
     x: number,
     y: number,
     event: React.MouseEvent,
 }
 
+/**
+ * Canvas component that manages an underlying HTML canvas element.
+ * 
+ * Binds the canvas to the Canvas2DrawingProvider as the underlying screen for
+ * rendering Drawable objects.
+ */
 export default class Canvas extends React.Component<CanvasProps, CanvasState> {
     
     drawingProvider?: Canvas2DrawingProvider
@@ -43,6 +68,11 @@ export default class Canvas extends React.Component<CanvasProps, CanvasState> {
         }
     }
 
+    /**
+     * Updates the canvas element width and height properties to the actual
+     * size of the canvas. This enables rescaling the canvas to the correct
+     * propertions when the size of the canvas is regulated through CSS style.
+     */
     updateCanvasWidthAndHeight() {
         if (this.canvas) {
             const [width, height] = this.getSize()
@@ -51,6 +81,13 @@ export default class Canvas extends React.Component<CanvasProps, CanvasState> {
         }
     }
 
+    /**
+     * Handle a click on the canvas.
+     * 
+     * Wraps the event, corrects the x and y coordinated of the click, then calls the onClick hander
+     * of the component.
+     * @param event the actual event received from the canvas element.
+     */
     handleClick(event: React.MouseEvent) {
         if(this.props.onClick) {
             const ev = {
@@ -67,6 +104,9 @@ export default class Canvas extends React.Component<CanvasProps, CanvasState> {
         }
     }
 
+    /**
+     * Returns the actual size of the canvas element in the DOM.
+     */
     getSize() {
         const rect = this.canvas?.getBoundingClientRect()
         return [rect?.width, rect?.height]

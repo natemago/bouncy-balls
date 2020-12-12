@@ -2,7 +2,9 @@ import React from 'react'
 
 import './Settings.css'
 
-
+/**
+ * Settings values exposed type.
+ */
 export type SettingsValues = {
     newObjectsPerClick: number,
     objectsColor: string,
@@ -11,6 +13,9 @@ export type SettingsValues = {
 }
 
 
+/**
+ * Settings component state type.
+ */
 type SettingsState = {
     newObjectsPerClick: number,
     objectsColor: string,
@@ -19,12 +24,29 @@ type SettingsState = {
     settingsOpen: boolean,
 }
 
+/**
+ * Settings component props type.
+ */
 type SettingsProps = {
+    /**
+     * The initial settings for the settings panel.
+     */
     settings: SettingsValues,
+
+    /**
+     * Called when the settings have changed with the updated settings.
+     */
     onSetSettings?: (settings: SettingsValues)=> void
+
+    /**
+     * Called when the panel have been closed.
+     */
     onClose?: ()=>void
 }
 
+/**
+ * Objects colors pallete to choose from.
+ */
 export const Pallete = {
     Red: "#c4014c",
     Magenta: "#f3008e",
@@ -34,6 +56,9 @@ export const Pallete = {
     Yellow: "#ebe712"
 }
 
+/**
+ * Objects sizes to choose from.
+ */
 export const ObjectsSize = {
     Little: 7,
     Small: 10,
@@ -43,6 +68,9 @@ export const ObjectsSize = {
 }
 
 
+/**
+ * A settings pannel to control the values for the drawable objects and the rendering engine.
+ */
 export default class Settings extends React.Component<SettingsProps, SettingsState> {
 
     constructor(props: SettingsProps) {
@@ -64,9 +92,9 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
                 elasticity: state.elasticity,
             })
         }
-        if(this.props.onClose) {
-            this.props.onClose()
-        }
+        // if(this.props.onClose) {
+        //     this.props.onClose()
+        // }
     }
 
     closeSettings(): void {
@@ -76,9 +104,8 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
     }
 
     updateState(values: any) {
-        console.log('Update state ->', values)
         this.setState(Object.assign(this.state, values))
-        console.log('Curr state', this.state)
+        this.saveSettings()
     }
 
     toggleSettings() {
@@ -103,7 +130,7 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
                 <div className="settings-form">
                     <div className="input-group">
                         <label htmlFor="objects-per-click">Objects per click</label>
-                        <input name="objects-per-click" type="number" value={state.newObjectsPerClick} min="1" max="5" onChange={e => this.updateState({
+                        <input name="objects-per-click" type="number" value={state.newObjectsPerClick} min="1" max="500" onChange={e => this.updateState({
                             newObjectsPerClick: Number(e.target.value)
                         })}></input>
                     </div>
@@ -129,10 +156,10 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
                             elasticity: Number(e.target.value)
                         })}></input>
                     </div>
-                    <div className="input-group form-actions">
+                    {/* <div className="input-group form-actions">
                         <button onClick={this.closeSettings.bind(this)}>Cancel</button>
                         <button onClick={this.saveSettings.bind(this)}>Save</button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         );

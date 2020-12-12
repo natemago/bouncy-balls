@@ -12,15 +12,13 @@ code {
     monospace;
 }
 
-input, button {
+input, button, select {
   padding: 10px;
-  border: 1px solid #023d5f;
+  border: solid 1px #28a9ff;
+  color: #28a9ff;
+  background-color: #282c34;
+  margin: 2px;
   
-}
-
-button {
-  color: #023d5f;
-  background-color: #cde4f1;
 }
 
 button:hover {

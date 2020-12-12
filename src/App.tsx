@@ -1,7 +1,9 @@
 import React from 'react';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faCog} from '@fortawesome/free-solid-svg-icons'
+import {faCog, faBook, faChevronUp, faChevronDown} from '@fortawesome/free-solid-svg-icons'
+import {faGithub} from '@fortawesome/free-brands-svg-icons'
+
 
 import {Canvas2DrawingProvider, Ball, Specs, Vector2D} from './bouncyballs/drawables'
 import {Engine} from './bouncyballs/engine'
@@ -9,7 +11,7 @@ import {Engine} from './bouncyballs/engine'
 import Canvas, {CanvasMouseEvent} from './components/Canvas'
 import Settings, {SettingsValues, Pallete, ObjectsSize} from './components/Settings'
 
-//import logo from './logo.svg';
+import logo from './logo.svg';
 import './App.css';
 
 
@@ -21,7 +23,9 @@ type AppState = {
 type AppProps = {}
 
 /**
- * Main app React component class.
+ * Main app component class.
+ * 
+ * Initializes the drawing engine, adds the Canvas and the Settings pannel.
  */
 class App extends React.Component<AppProps, AppState> {
 
@@ -72,8 +76,8 @@ class App extends React.Component<AppProps, AppState> {
   createBall(x: number, y: number) {
     const {settings} = this.state
     const position = new Vector2D(x, y)
-    const g = new Vector2D(0, -9.81)
-    const velocityRange = 15
+    const g = new Vector2D(0, 150*-9.81)
+    const velocityRange = 400
     const randomVelocity = new Vector2D(Math.random()*velocityRange - velocityRange/2, Math.random()*velocityRange - velocityRange/2)
     return new Ball(
       settings.objectsSize/2 + Math.random()*(settings.objectsSize/2),
@@ -113,15 +117,24 @@ class App extends React.Component<AppProps, AppState> {
 
   render(){
     const settinsComp = this.state.settingsVisible ? <Settings settings={this.state.settings} onSetSettings={this.changeSettings.bind(this)} onClose={this.closeSettings.bind(this)}></Settings> : <></>
+    const settingOpenIcon = this.state.settingsVisible ? <FontAwesomeIcon icon={faChevronUp} /> : <FontAwesomeIcon icon={faChevronDown}/>
     return (
       <div className="App">
         <header className="App-header">
           <div className="header-menu">
+            <div>
+              <img src={logo} alt="logo" className="logo"/>
+            </div>
+
             <div className="header-title">
               <h1>Bouncy Balls</h1>
             </div>
             <div className="header-actions">
-              <button onClick={this.toggleSettings.bind(this)}><FontAwesomeIcon icon={faCog}></FontAwesomeIcon></button>
+    <button onClick={this.toggleSettings.bind(this)} className="header-button"><FontAwesomeIcon icon={faCog}></FontAwesomeIcon> Settings {settingOpenIcon}</button>
+            </div>
+            <div>
+              <a href="docs" className="header-button"><FontAwesomeIcon icon={faBook} /> Docs</a>
+              <a href="github.com/natemago/bouncy-balls" className="header-button"><FontAwesomeIcon icon={faGithub} /></a>
             </div>
           </div>
           {settinsComp}
