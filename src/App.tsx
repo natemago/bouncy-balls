@@ -22,6 +22,14 @@ type AppState = {
 
 type AppProps = {}
 
+
+const GRAVITY_ACCEL = -9.81      // g, gravitational acceleration (however in pixels per second)
+const G_COEFF = 150              // Multiply g by this coefficient. Not real, but looks nice on screen.
+const FPS = 60                   // Frames per second. This would be the update frequency, that should match 
+                                 // as closely as possible to the animation frequency.
+const ELASTICITY = 0.7           // Also called Coefficient of restitution. How much does the balls bounce back.
+const INITIAL_BALLS_SPEED = 400  // Coefficient for the initial random velocity magnitude.
+
 /**
  * Main app component class.
  * 
@@ -31,15 +39,13 @@ class App extends React.Component<AppProps, AppState> {
 
   drawingProvider: Canvas2DrawingProvider
   canvas?: Canvas | null
-
   engine: Engine
-
 
   constructor(props:any) {
     super(props)
     this.drawingProvider = new Canvas2DrawingProvider()
     const settings = {
-      elasticity: 0.7,
+      elasticity: ELASTICITY,
         newObjectsPerClick: 5,
         objectsColor: Pallete.Red,
         objectsSize: ObjectsSize.Medium,
@@ -49,7 +55,7 @@ class App extends React.Component<AppProps, AppState> {
       settings: settings,
     }
     this.engine = new Engine({
-      fps: 60,
+      fps: FPS,
       world: {
         width: 0,
         height: 0,
@@ -70,14 +76,13 @@ class App extends React.Component<AppProps, AppState> {
   updateWorldSize() {
     const [width, height] = this.canvas?.getSize()?? [0, 0]
     this.engine.updateWorldSize(width?? 0, height?? 0)
-    console.log('Update world size to:', width, height)
   }
   
   createBall(x: number, y: number) {
     const {settings} = this.state
     const position = new Vector2D(x, y)
-    const g = new Vector2D(0, 150*-9.81)
-    const velocityRange = 400
+    const g = new Vector2D(0, G_COEFF*GRAVITY_ACCEL)
+    const velocityRange = INITIAL_BALLS_SPEED
     const randomVelocity = new Vector2D(Math.random()*velocityRange - velocityRange/2, Math.random()*velocityRange - velocityRange/2)
     return new Ball(
       settings.objectsSize/2 + Math.random()*(settings.objectsSize/2),

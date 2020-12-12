@@ -50,10 +50,10 @@ type SettingsProps = {
 export const Pallete = {
     Red: "#c4014c",
     Magenta: "#f3008e",
-    Green: "#00b84c",
-    Teal: "#008c9e",
-    Blue: "#004a9e",
-    Yellow: "#ebe712"
+    Green: "#09d877",
+    Teal: "#12cebe",
+    Blue: "#4596f1",
+    Yellow: "#ffdc3d"
 }
 
 /**
@@ -114,13 +114,13 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
 
     render():any {
         const state = this.state
-        const colorOptions = Object.entries(Pallete).map((entry=> {
+        const colorOptions = Object.entries(Pallete).map((entry, i)=> {
             const [name, value] = entry
-            return <option value={value} >{name}</option>
-        }))
-        const sizeOptions = Object.entries(ObjectsSize).map(entry => {
+            return <option value={value} key={i}>{name}</option>
+        })
+        const sizeOptions = Object.entries(ObjectsSize).map((entry, i) => {
             const [name, value] = entry
-            return <option value={value} >{name}</option>
+            return <option value={value} key={i}>{name}</option>
         })
         return (
             <div className="settings">
@@ -135,6 +135,7 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
                             max="500" 
                             title="Number of objects to create per single click."
                             placeholder="Number of objects"
+                            data-testid="objects-per-click"
                             onChange={e => this.updateState({
                                 newObjectsPerClick: Number(e.target.value)
                             })}></input>
@@ -146,6 +147,7 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
                             value={state.objectsColor} 
                             title="The color of the newly created objects."
                             placeholder="Select a color from the list"
+                            data-testid="objects-color"
                             onChange={e => this.updateState({
                                 objectsColor: e.target.value
                             })}>
@@ -159,6 +161,7 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
                             value={state.objectsSize}
                             title="Approximate size of the newly created objects."
                             placeholder="Select the approximate size of the objects."
+                            data-testid="objects-size"
                             onChange={e => this.updateState({
                                 objectsSize: Number(e.target.value)
                             })}>
@@ -175,6 +178,7 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
                             step="0.01" 
                             title="How elastic should the collision should be. 1 - completely elastic; 0 - will not bounce at all."
                             placeholder="Choose a value between 0 and 1 (for example 0.7)."
+                            data-testid="elasticity"
                             value={this.state.elasticity} onChange={e => this.updateState({
                                 elasticity: Number(e.target.value)
                             })}></input>

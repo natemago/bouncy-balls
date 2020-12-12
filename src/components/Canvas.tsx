@@ -113,6 +113,6 @@ export default class Canvas extends React.Component<CanvasProps, CanvasState> {
     }
 
     render() {
-        return <canvas ref={(c) => this.canvas = c} onClick={this.handleClick.bind(this)} className="drawing-canvas"></canvas>
+        return <canvas ref={(c) => this.canvas = c} onClick={this.handleClick.bind(this)} className="drawing-canvas" data-testid="canvas"></canvas>
     }
 }
