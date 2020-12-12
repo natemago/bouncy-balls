@@ -64,7 +64,7 @@ class App extends React.Component<AppProps, AppState> {
       updateWorldSize()
     })
     updateWorldSize()
-    //this.engine.start()
+    this.engine.start()
   }
 
   updateWorldSize() {

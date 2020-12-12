@@ -8,6 +8,7 @@ Bouncing balls all over screen.
 [![Visit the demo site](https://img.shields.io/badge/Demo-see%20the%20demo-ff69b4)](https://natemago.github.io/bouncy-balls/)
 [![Read the documentation](https://img.shields.io/badge/Documentation-Read%20the%20documentation-blue)](https://natemago.github.io/bouncy-balls/docs/)
 
+![Bouncy Bouncy Balls](bouncy-balls-demo.gif)
 
 # Set up
 
