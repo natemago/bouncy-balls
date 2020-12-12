@@ -14,15 +14,15 @@ code {
 
 input, button, select {
   padding: 10px;
-  border: solid 1px #28a9ff;
-  color: #28a9ff;
-  background-color: #282c34;
+  border: solid 1px #c770d8;
+  color: #c770d8;
+  background-color: #302834;
   margin: 2px;
   
 }
 
 button:hover {
-  background-color: #023d5f;
-  color: #cde4f1;
-  border: 1px solid #cde4f1;
+  background-color: #5f3368;
+  color: #e7cdf1;
+  border: 1px solid #e7cdf1;
 }

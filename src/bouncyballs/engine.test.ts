@@ -173,13 +173,11 @@ test('Test Enging bounceBack (from floor)', () => {
 
     const b1 = newDrawable(10, 0)
     b1.velocity = new Vector2D(0, -10)
-    b1.acceleration = new Vector2D(0, -9.81)
     b1.position = new Vector2D(10, 0)
 
 
     const b2 = newDrawable(10, -5)
     b2.velocity = new Vector2D(0, -10)
-    b2.acceleration = new Vector2D(0, -9.81)
     
     engine.addObject(b1)
     engine.addObject(b2)

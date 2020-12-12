@@ -64,7 +64,7 @@ class App extends React.Component<AppProps, AppState> {
       updateWorldSize()
     })
     updateWorldSize()
-    this.engine.start()
+    //this.engine.start()
   }
 
   updateWorldSize() {
@@ -120,21 +120,20 @@ class App extends React.Component<AppProps, AppState> {
     const settingOpenIcon = this.state.settingsVisible ? <FontAwesomeIcon icon={faChevronUp} /> : <FontAwesomeIcon icon={faChevronDown}/>
     return (
       <div className="App">
-        <header className="App-header">
+        <header className="App-header" title="Click anywhere on the screen :)">
           <div className="header-menu">
-            <div>
-              <img src={logo} alt="logo" className="logo"/>
+            <div className="logo-wrap">
+            <img src={logo} alt="logo" className="logo"/>
             </div>
-
             <div className="header-title">
               <h1>Bouncy Balls</h1>
             </div>
-            <div className="header-actions">
-    <button onClick={this.toggleSettings.bind(this)} className="header-button"><FontAwesomeIcon icon={faCog}></FontAwesomeIcon> Settings {settingOpenIcon}</button>
+            <div className="header-actions header-docitem">
+    <button onClick={this.toggleSettings.bind(this)} className="header-button" title="Click here to change the settings"><FontAwesomeIcon icon={faCog}></FontAwesomeIcon> <label>Settings</label> {settingOpenIcon}</button>
             </div>
-            <div>
-              <a href="docs" className="header-button"><FontAwesomeIcon icon={faBook} /> Docs</a>
-              <a href="github.com/natemago/bouncy-balls" className="header-button"><FontAwesomeIcon icon={faGithub} /></a>
+            <div className="header-docitem">
+              <a href="docs" className="header-button" title="Check out the docs!"><FontAwesomeIcon icon={faBook} /> <label>Docs</label></a>
+              <a href="https//github.com/natemago/bouncy-balls" className="header-button" title="Visit the source code repository on Github!"><FontAwesomeIcon icon={faGithub} /></a>
             </div>
           </div>
           {settinsComp}

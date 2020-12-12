@@ -129,8 +129,12 @@ export class Engine {
                 if (bbox.y <= 0) {
                     bdo.position = new Vector2D(bdo.position.x, 0)
 
-                    let correctedVelocity = bdo.velocity.y - bdo.acceleration.y*delta
-                    bdo.velocity = new Vector2D(bdo.velocity.x, -(correctedVelocity)*elasticity)
+                    let correctedVelocity = bdo.velocity.y
+                    if (bbox.y < 0) {
+                        correctedVelocity = correctedVelocity - bdo.acceleration.y*delta
+                    }
+                    
+                    bdo.velocity = new Vector2D(bdo.velocity.x, - (correctedVelocity)*elasticity)
                 }
             }
         })

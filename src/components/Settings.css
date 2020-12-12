@@ -30,7 +30,21 @@
 
 .input-group {
     display: block;
-    width: calc(40px + 15vw);
     min-width: 140px;
-    flex: 1 0 initial;
+    flex: 1;
+    padding: 0.5em;
+    margin: 0.5em;
+}
+
+.input-group label {
+    display: block;
+    color: #f0adfd;
+}
+
+.input-group input {
+    width: 80px;
+}
+
+.input-group select {
+    width: 100px;
 }

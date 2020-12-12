@@ -6,7 +6,10 @@ img.logo {
   margin-bottom: auto;
   margin-left: 5px;
   margin-right: 10px;
+  
 }
+
+
 
 .App-header {
   background-color: #282c34;
@@ -35,19 +38,39 @@ header .header-menu {
   height: 3em;
 }
 
+header .header-menu > div {
+  flex: 1;
+}
+
 .header-menu h1 {
   font-size: 1.3em;
+  display: inline-block;
 }
 
 .header-menu .header-title {
   flex: 1 1 auto;
+  width: 30%;
+}
+
+.header-menu .header-docitem {
+  flex: 0 0 auto;
 }
 
 .header-button {
   padding: 10px;
   margin: 2px;
-  border: solid 1px #28a9ff;
-  color: #28a9ff;
+  border: solid 1px #c770d8;
+  color: #c770d8;
   display: inline-block;
   text-decoration: none;
+}
+
+header .header-menu div.logo-wrap {
+  flex: 0 0 auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .header-menu label {
+    display: none;
+  }
 }

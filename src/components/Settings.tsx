@@ -92,9 +92,6 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
                 elasticity: state.elasticity,
             })
         }
-        // if(this.props.onClose) {
-        //     this.props.onClose()
-        // }
     }
 
     closeSettings(): void {
@@ -130,36 +127,58 @@ export default class Settings extends React.Component<SettingsProps, SettingsSta
                 <div className="settings-form">
                     <div className="input-group">
                         <label htmlFor="objects-per-click">Objects per click</label>
-                        <input name="objects-per-click" type="number" value={state.newObjectsPerClick} min="1" max="500" onChange={e => this.updateState({
-                            newObjectsPerClick: Number(e.target.value)
-                        })}></input>
+                        <input 
+                            name="objects-per-click" 
+                            type="number" 
+                            value={state.newObjectsPerClick} 
+                            min="1" 
+                            max="500" 
+                            title="Number of objects to create per single click."
+                            placeholder="Number of objects"
+                            onChange={e => this.updateState({
+                                newObjectsPerClick: Number(e.target.value)
+                            })}></input>
                     </div>
                     <div className="input-group">
                     <label htmlFor="objects-color">Objects color</label>
-                        <select name="objects-color" value={state.objectsColor} onChange={e => this.updateState({
-                            objectsColor: e.target.value
-                        })}>
+                        <select 
+                            name="objects-color" 
+                            value={state.objectsColor} 
+                            title="The color of the newly created objects."
+                            placeholder="Select a color from the list"
+                            onChange={e => this.updateState({
+                                objectsColor: e.target.value
+                            })}>
                             {colorOptions}
                         </select>
                     </div>
                     <div className="input-group">
                     <label htmlFor="objects-size">Objects size</label>
-                        <select name="objects-size" value={state.objectsSize} onChange={e => this.updateState({
-                            objectsSize: Number(e.target.value)
-                        })}>
+                        <select 
+                            name="objects-size"
+                            value={state.objectsSize}
+                            title="Approximate size of the newly created objects."
+                            placeholder="Select the approximate size of the objects."
+                            onChange={e => this.updateState({
+                                objectsSize: Number(e.target.value)
+                            })}>
                             {sizeOptions}
                         </select>
                     </div>
                     <div className="input-group">
                     <label htmlFor="elasticity">Elasticity</label>
-                        <input name="elasiticity" type="number" min="0" max="1" step="0.01" value={this.state.elasticity} onChange={e => this.updateState({
-                            elasticity: Number(e.target.value)
-                        })}></input>
+                        <input 
+                            name="elasiticity" 
+                            type="number" 
+                            min="0" 
+                            max="1" 
+                            step="0.01" 
+                            title="How elastic should the collision should be. 1 - completely elastic; 0 - will not bounce at all."
+                            placeholder="Choose a value between 0 and 1 (for example 0.7)."
+                            value={this.state.elasticity} onChange={e => this.updateState({
+                                elasticity: Number(e.target.value)
+                            })}></input>
                     </div>
-                    {/* <div className="input-group form-actions">
-                        <button onClick={this.closeSettings.bind(this)}>Cancel</button>
-                        <button onClick={this.saveSettings.bind(this)}>Save</button>
-                    </div> */}
                 </div>
             </div>
         );
