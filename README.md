@@ -1,4 +1,4 @@
-:balloon: Bouncy Balls :ballon:
+:balloon: Bouncy Balls :balloon:
 ===============================
 
 Bouncing balls all over screen.
